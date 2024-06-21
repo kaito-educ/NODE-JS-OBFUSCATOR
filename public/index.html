@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Obfuscator</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+ <style>
+    margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-right: 10px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    button i {
+      margin-right: 5px;
+    }
+
+    .fa-code,
+    .fa-lock,
+    .fa-copy,
+    .fa-check {
+      color: #007bff;
+    }
+
+    .error {
+      color: red;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border-top: 1px solid #ccc;
+    }
+
+    pre {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
+    }
+ </style>
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fas fa-code"></i> JavaScript Obfuscator</h1>
+    <textarea id="inputCode" placeholder="Enter JavaScript code here..." rows="10" cols="50"></textarea>
+    <button onclick="obfuscate()">Obfuscate</button>
+    <textarea id="outputCode" placeholder="Obfuscated code will appear here..." rows="40" cols="100" readonly></textarea>
+    <button onclick="copyToClipboard()" id="copyButton">Copy</button>
+
+    <div id="error" class="error"></div>
+
+    <h2>Example JavaScript Code (Non-Obfuscated):</h2>
+    <pre><code>
+function factorial(n) {
+  if (n === 0 || n === 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+}
+
+// Example usage:
+const number = 5;
+const result = factorial(number);
+console.log(`The factorial of ${number} is ${result}`);
+    </code></pre>
+
+    <h2>Example JavaScript Code (Obfuscated):</h2>
+    <pre><code id="exampleObfuscatedCode">
+function _0x1aad(_0xe38d08,_0x2a1c80){const _0x13c820=_0x13c8();return _0x1aad=function(_0x1aad37,_0x58727a){_0x1aad37=_0x1aad37-0x125;let _0x3e785b=_0x13c820[_0x1aad37];return _0x3e785b;},_0x1aad(_0xe38d08,_0x2a1c80);}const _0x3f8da0=_0x1aad;(function(_0x521d0a,_0x1192d7){const _0x23636a=_0x1aad,_0x246d46=_0x521d0a();while(!![]){try{const _0x4a2304=parseInt(_0x23636a(0x129))/0x1+-parseInt(_0x23636a(0x125))/0x2+-parseInt(_0x23636a(0x131))/0x3*(parseInt(_0x23636a(0x127))/0x4)+parseInt(_0x23636a(0x12f))/0x5*(-parseInt(_0x23636a(0x132))/0x6)+-parseInt(_0x23636a(0x12e))/0x7*(parseInt(_0x23636a(0x12c))/0x8)+-parseInt(_0x23636a(0x12d))/0x9+parseInt(_0x23636a(0x130))/0xa*(parseInt(_0x23636a(0x128))/0xb);if(_0x4a2304===_0x1192d7)break;else _0x246d46['push'](_0x246d46['shift']());}catch(_0x1223d2){_0x246d46['push'](_0x246d46['shift']());}}}(_0x13c8,0xc6615));function factorial(_0x508669){return _0x508669===0x0||_0x508669===0x1?0x1:_0x508669*factorial(_0x508669-0x1);}const number=0x5,result=factorial(number);console[_0x3f8da0(0x12a)](_0x3f8da0(0x12b)+number+_0x3f8da0(0x126)+result);function _0x13c8(){const _0x23b182=['10833570SUftNZ','50939RupGDZ','1067255ijVYXD','31190doeShU','61239YQcpzg','30VFNocf','608802VTsYfq','\x20is\x20','104KvJNfI','16643oWrDRK','65605ocXiVo','log','The\x20factorial\x20of\x20','952pANCbz'];_0x13c8=function(){return _0x23b182;};return _0x13c8();}
+    </code></pre>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 @KaitoDev. All rights reserved.</p>
+  </footer>
+
+  <script>
+    async function obfuscate() {
+      const code = document.getElementById('inputCode').value;
+      const errorDiv = document.getElementById('error');
+      errorDiv.textContent = ''; // Clear previous errors
+
+      if (!code.trim()) {
+        errorDiv.textContent = 'Error: Please enter valid JavaScript code.';
+        return;
+      }
+
+      try {
+        const response = await fetch('/obfuscate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ code })
+        });
+        const data = await response.json();
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        document.getElementById('outputCode').value = data.obfuscatedCode;
+        randomizeTextColor('outputCode');
+      } catch (error) {
+        errorDiv.textContent = `Error: ${error.message}`;
+      }
+    }
+
+    function copyToClipboard() {
+      const outputCode = document.getElementById('outputCode');
+      outputCode.select();
+      outputCode.setSelectionRange(0, 99999); // For mobile devices
+
+      document.execCommand('copy');
+
+      const copyButton = document.getElementById('copyButton');
+      copyButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
+      setTimeout(() => {
+        copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy';
+      }, 2000);
+    }
+
+    function randomizeTextColor(elementId) {
+      const colors = ['red', 'blue', 'green', 'purple', 'orange'];
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      document.getElementById(elementId).style.color = randomColor;
+    }
+
+    // Example usage:
+    document.addEventListener('DOMContentLoaded', () => {
+      randomizeTextColor('exampleObfuscatedCode');
+    });
+  </script>
+</body>
+</html>
